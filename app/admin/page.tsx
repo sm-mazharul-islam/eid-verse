@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { 
   BarChart3, ShieldCheck, Mail, BookOpen, AlertCircle, 
   Trash2, Check, X, ShieldAlert, Award, Sparkles, RefreshCw, 
-  User, Plus, Eye, Globe, ArrowLeft, ToggleLeft, ToggleRight
+  User, Plus, Eye, Globe, ArrowLeft, ToggleLeft, ToggleRight,
+  LogOut
 } from 'lucide-react';
 import GoldenButton from '@/components/ui/GoldenButton';
 
@@ -113,14 +114,26 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        {/* Refresh trigger */}
-        <button
-          onClick={() => setRefreshTrigger((prev) => prev + 1)}
-          className="glass-panel border border-white/5 hover:border-gold-300/30 text-gold-300 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 transition-all"
-        >
-          <RefreshCw className="w-3.5 h-3.5" />
-          Refresh Stats
-        </button>
+        {/* Header Action Controls */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setRefreshTrigger((prev) => prev + 1)}
+            className="glass-panel border border-white/5 hover:border-gold-300/30 text-gold-300 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 transition-all"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            Refresh Stats
+          </button>
+          <button
+            onClick={() => {
+              localStorage.removeItem('eidverse_admin_auth');
+              window.location.reload();
+            }}
+            className="glass-panel border border-red-500/10 hover:border-red-500/30 text-red-400 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95 transition-all"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            Log Out
+          </button>
+        </div>
       </header>
 
       {/* 2. Key Metrics Grid summary cards */}

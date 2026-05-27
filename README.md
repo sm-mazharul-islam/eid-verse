@@ -6,6 +6,14 @@ Currently running dynamically in **Eid al-Adha (Qurbani) Mode** or **Eid al-Fitr
 
 ---
 
+## 🔗 Live Production Deployment
+🚀 **Experience the Atmospheric Cinematic Platform Live:**
+👉 **[https://eidverse-six.vercel.app](https://eidverse-six.vercel.app)** 🌙✨
+
+*(Note: Automatically connects dynamically to your live MongoDB Atlas cloud database cluster!)*
+
+---
+
 ## 🚀 Tech Stack & Design System
 * **Framework**: [Next.js 16 (App Router)](https://nextjs.org/) utilizing optimized server actions, lazy-loaded components, and static layout bindings.
 * **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with a custom luxury HSL dark/gold glassmorphic design token system.

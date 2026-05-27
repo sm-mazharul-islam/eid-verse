@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/navigation';
 import StarField from '@/components/animation/StarField';
 import { Lock, Unlock, ShieldAlert, Key } from 'lucide-react';
@@ -14,6 +14,16 @@ export default function AdminLayout({
   const [passcode, setPasscode] = useState('');
   const [error, setError] = useState('');
 
+  // Persist authentication state across page refreshes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedAuth = localStorage.getItem('eidverse_admin_auth');
+      if (savedAuth === 'true') {
+        setIsAuthenticated(true);
+      }
+    }
+  }, []);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const correctPasscode = process.env.NEXT_PUBLIC_ADMIN_PASSCODE || 'admin';
@@ -21,6 +31,7 @@ export default function AdminLayout({
 
     if (passcode === correctPasscode || passcode === correctPasscodeAlt) {
       setIsAuthenticated(true);
+      localStorage.setItem('eidverse_admin_auth', 'true');
       setError('');
     } else {
       setError('Incorrect administrative passcode.');
@@ -29,6 +40,7 @@ export default function AdminLayout({
 
   const handleBypass = () => {
     setIsAuthenticated(true);
+    localStorage.setItem('eidverse_admin_auth', 'true');
     setError('');
   };
 
