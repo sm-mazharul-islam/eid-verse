@@ -1,0 +1,284 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Rahim",
+      "slug": "rahim",
+      "email": "rahim@eidverse.com",
+      "greetingCount": 5,
+      "favoriteTheme": "moon",
+      "createdAt": "2026-05-27T06:11:45.195Z"
+    },
+    {
+      "id": "u2",
+      "name": "Karim",
+      "slug": "karim",
+      "email": "karim@eidverse.com",
+      "greetingCount": 2,
+      "favoriteTheme": "lantern",
+      "createdAt": "2026-05-27T06:11:45.195Z"
+    }
+  ],
+  "wishes": [
+    {
+      "id": "w1",
+      "senderName": "Rahim",
+      "receiverName": "Aria",
+      "message": "May your Eid al-Adha be filled with devotion, peace, and legendary fresh beef biriyani! Eid Mubarak!",
+      "theme": "gold",
+      "slug": "rahim-aria-eid",
+      "viewCount": 15,
+      "isPublic": true,
+      "country": "BD",
+      "emoji": "🐄",
+      "eidType": "eid-al-adha",
+      "createdAt": "2026-05-27T06:11:45.195Z",
+      "senderId": "u1"
+    },
+    {
+      "id": "w2",
+      "senderName": "Karim",
+      "receiverName": "Sami",
+      "message": "Wishing you the sweet relief of Eid and countless boxes of sheer khurma! Eid Mubarak!",
+      "theme": "lantern",
+      "slug": "karim-sami-eid",
+      "viewCount": 7,
+      "isPublic": true,
+      "country": "BD",
+      "emoji": "🌙",
+      "eidType": "eid-al-fitr",
+      "createdAt": "2026-05-27T06:11:45.196Z",
+      "senderId": "u2"
+    },
+    {
+      "id": "yh8fh6dp7dz25q5bi5jf9",
+      "createdAt": "2026-05-27T06:15:00.754Z",
+      "senderName": "jnjn",
+      "receiverName": "jjn",
+      "message": "Hey jjn! May your path be illuminated by the glowing lanterns of faith and endless joy. Happy Eid from jnjn! ✨",
+      "theme": "lantern",
+      "slug": "jnjn-jjn-45lm",
+      "eidType": "eid-al-adha",
+      "isPublic": true,
+      "viewCount": 1
+    }
+  ],
+  "blessings": [
+    {
+      "id": "b1",
+      "text": "May the sacrifice of Ibrahim (AS) inspire your heart with complete devotion and love. May Allah accept your Qurbani.",
+      "category": "qurbani",
+      "language": "en",
+      "eidType": "eid-al-adha",
+      "isActive": true,
+      "usedCount": 121,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "b2",
+      "text": "May your home be blessed with the warm laughter of family gathered together around a beautiful Eid feast.",
+      "category": "family",
+      "language": "en",
+      "eidType": "general",
+      "isActive": true,
+      "usedCount": 85,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "b3",
+      "text": "May your heart find peace, your soul find strength, and your life be showered with endless barakah.",
+      "category": "peace",
+      "language": "en",
+      "eidType": "general",
+      "isActive": true,
+      "usedCount": 96,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "b4",
+      "text": "After a beautiful month of fasting and patience, may this Eid al-Fitr wrap your heart in sweet, heavenly joy.",
+      "category": "general",
+      "language": "en",
+      "eidType": "eid-al-fitr",
+      "isActive": true,
+      "usedCount": 110,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "b5",
+      "text": "May the light of the mosque minarets shine softly in your heart tonight, answering every silent prayer.",
+      "category": "peace",
+      "language": "en",
+      "eidType": "general",
+      "isActive": true,
+      "usedCount": 52,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "qpdyvstufsdhcwc7nqxf6",
+      "createdAt": "2026-05-27T07:55:44.806Z",
+      "text": "Wishing you and your family a blessed Eid al-Adha! May this special occasion fill your heart with joy, peace, and prosperity.",
+      "category": "general",
+      "language": "en",
+      "eidType": "eid-al-adha",
+      "isActive": true,
+      "usedCount": 0
+    }
+  ],
+  "duas": [
+    {
+      "id": "d1",
+      "text": "O Allah, accept our Qurbani, our prayers, and our devotion. You are indeed the All-Hearing, the All-Knowing.",
+      "arabic": "اللَّهُمَّ تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ",
+      "meaning": "O Allah, accept from us, indeed You are the All-Hearing, the All-Knowing.",
+      "category": "sacrifice",
+      "duaType": "after-sacrifice",
+      "eidType": "eid-al-adha",
+      "isActive": true,
+      "usedCount": 75,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "d2",
+      "text": "In the name of Allah, Allah is the Greatest! O Allah, this is from You and for You.",
+      "arabic": "بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ اللَّهُمَّ هَذَا مِنْكَ وَلَكَ",
+      "meaning": "In the name of Allah, Allah is the Greatest! O Allah, this is from You and for You.",
+      "category": "sacrifice",
+      "duaType": "before-sacrifice",
+      "eidType": "eid-al-adha",
+      "isActive": true,
+      "usedCount": 140,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "d3",
+      "text": "May Allah accept it from us and from you.",
+      "arabic": "تَقَبَّلَ اللَّهُ مِنَّا وَمِنْكُمْ",
+      "meaning": "May Allah accept from us and from you.",
+      "category": "gratitude",
+      "duaType": "general",
+      "eidType": "general",
+      "isActive": true,
+      "usedCount": 220,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "d4",
+      "text": "O Allah, grant my family good health, everlasting peace, and protect them from all harm. You are the Best Protector.",
+      "arabic": "اللَّهُمَّ احْفَظْ أَهْلِي وَبَارِكْ لَهُمْ فِيهَا",
+      "meaning": "O Allah, protect my family and bless them in all things.",
+      "category": "family",
+      "duaType": "general",
+      "eidType": "general",
+      "isActive": true,
+      "usedCount": 95,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    }
+  ],
+  "reactions": [],
+  "globalMessages": [
+    {
+      "id": "gm1",
+      "name": "Tanvir",
+      "country": "Bangladesh",
+      "flag": "🇧🇩",
+      "message": "Eid Mubarak everyone! Wishing health and wealth to all cattle farmers this Eid! 🐄",
+      "isApproved": true,
+      "eidType": "eid-al-adha",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "gm2",
+      "name": "Aisha",
+      "country": "United Kingdom",
+      "flag": "🇬🇧",
+      "message": "Taqabbalallahu minna wa minkum from London! Miss my family back home so much! ❤️",
+      "isApproved": true,
+      "eidType": "general",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "gm3",
+      "name": "Faisal",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦",
+      "message": "A truly blessed Eid al-Adha. The atmosphere in Makkah is incredible! 🕋",
+      "isApproved": true,
+      "eidType": "eid-al-adha",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    }
+  ],
+  "qurbaniStories": [
+    {
+      "id": "qs1",
+      "animalName": "Kalo (The Giant Black Cow)",
+      "memoryText": "We bought Kalo 4 days before Eid. The children spent the whole day feeding him grass and apples in the parking lot. Saying goodbye on Eid morning was tough, but sharing the meat with 30 local families who could not afford it made it truly sacred.",
+      "photoUrl": "",
+      "cloudinaryId": "",
+      "submitterName": "Rashedul Hasan",
+      "city": "Dhaka",
+      "country": "BD",
+      "year": 2026,
+      "isApproved": true,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "qs2",
+      "animalName": "Laltu (The Majestic Red Goat)",
+      "memoryText": "Laltu was extremely mischievous! He escaped the gates twice on the eve of Eid and had the entire neighborhood chasing him down. Eid morning beef biriyani and goat curry was absolutely legendary! Eid Mubarak!",
+      "photoUrl": "",
+      "cloudinaryId": "",
+      "submitterName": "Jannat Ara",
+      "city": "Chittagong",
+      "country": "BD",
+      "year": 2026,
+      "isApproved": true,
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    }
+  ],
+  "analytics": [
+    {
+      "id": "a1",
+      "event": "page_view",
+      "country": "BD",
+      "theme": "moon",
+      "eidType": "eid-al-adha",
+      "sessionId": "s1",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "a2",
+      "event": "wish_created",
+      "country": "BD",
+      "theme": "gold",
+      "eidType": "eid-al-adha",
+      "sessionId": "s1",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "a3",
+      "event": "card_downloaded",
+      "country": "GB",
+      "theme": "lantern",
+      "eidType": "eid-al-fitr",
+      "sessionId": "s2",
+      "createdAt": "2026-05-27T06:11:45.196Z"
+    },
+    {
+      "id": "vr8saq6tx5njvnbhcgf09",
+      "createdAt": "2026-05-27T06:15:00.755Z",
+      "event": "wish_created",
+      "theme": "lantern",
+      "eidType": "eid-al-adha",
+      "country": "BD"
+    },
+    {
+      "id": "jc8xzloaracucraz9f6uf",
+      "createdAt": "2026-05-27T06:43:36.295Z",
+      "event": "wish_created",
+      "theme": "gold",
+      "eidType": "eid-al-adha",
+      "country": "BD"
+    }
+  ]
+}

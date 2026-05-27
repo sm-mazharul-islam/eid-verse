@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  slug          String     @unique
+  email         String?
+  greetingCount Int        @default(0)
+  favoriteTheme String     @default("moon")
+  createdAt     DateTime   @default(now())
+  wishes        Wish[]     @relation("SentWishes")
+  reactions     Reaction[]
+}
+
+model Wish {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  senderName   String
+  receiverName String
+  message      String
+  theme        String     @default("moon") // moon | mosque | lantern | gold
+  slug         String     @unique
+  viewCount    Int        @default(0)
+  isPublic     Boolean    @default(true)
+  country      String?
+  emoji        String?
+  eidType      String     @default("eid-al-adha") // "eid-al-adha" | "eid-al-fitr"
+  createdAt    DateTime   @default(now())
+  sender       User?      @relation("SentWishes", fields: [senderId], references: [id])
+  senderId     String?    @db.ObjectId
+  reactions    Reaction[]
+}
+
+model Blessing {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  category  String   @default("general") // general | qurbani | family | peace
+  language  String   @default("en")
+  eidType   String   @default("general") // "general" | "eid-al-adha" | "eid-al-fitr"
+  isActive  Boolean  @default(true)
+  usedCount Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Dua {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  text      String
+  arabic    String?
+  meaning   String?
+  category  String   @default("general") // gratitude | sacrifice | health | peace
+  duaType   String   @default("general") // "before-sacrifice" | "after-sacrifice" | "general"
+  eidType   String   @default("general")
+  isActive  Boolean  @default(true)
+  usedCount Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Reaction {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String   // heart | moon | star | pray
+  wishId    String?  @db.ObjectId
+  userId    String?  @db.ObjectId
+  wish      Wish?    @relation(fields: [wishId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model GlobalMessage {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  country    String
+  flag       String
+  message    String
+  isApproved Boolean  @default(false)
+  eidType    String   @default("eid-al-adha")
+  createdAt  DateTime @default(now())
+}
+
+model QurbaniStory {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  animalName    String
+  memoryText    String
+  photoUrl      String?
+  cloudinaryId  String?
+  submitterName String
+  city          String?
+  country       String   @default("BD")
+  year          Int
+  isApproved    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
+model Analytics {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  event     String   // page_view | wish_created | card_downloaded | secret_moon_explorer
+  country   String?
+  theme     String?
+  eidType   String?
+  sessionId String?
+  createdAt DateTime @default(now())
+}

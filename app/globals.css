@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Define custom luxury colors and tokens for Tailwind */
+  --color-gold-50: #FCF9F2;
+  --color-gold-100: #F7EED9;
+  --color-gold-200: #EDDAAB;
+  --color-gold-300: #E2C07D;
+  --color-gold-400: #D8A74E;
+  --color-gold-500: #B8860B; /* Primary serious gold */
+  --color-gold-600: #A8790A;
+  --color-gold-700: #825D08;
+  --color-gold-800: #5C4206;
+  --color-gold-900: #362703;
+
+  --color-emerald-950: #061F0D;
+  
+  --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+@layer base {
+  /* Shared Base Cinematic CSS custom properties */
+  :root {
+    --eid-primary: #B8860B;
+    --eid-secondary: #2D5016;
+    --eid-background: #070708;
+    --eid-accent: #8B4513;
+    --eid-glow: rgba(184, 134, 11, 0.45);
+    --eid-particle: #DAA520;
+    --transition-cinematic: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Eid al-Fitr Theme Override — Soft, Sweet, Pastel, Airy */
+  [data-eid-theme="fitr"] {
+    --eid-primary: #C8A96E;        /* Warm gold */
+    --eid-secondary: #7EC8A4;      /* Soft mint green */
+    --eid-background: #09121F;     /* Deep navy night sky */
+    --eid-accent: #E8C87A;         /* Light gold */
+    --eid-glow: rgba(200, 169, 110, 0.4);
+    --eid-particle: #FFD700;
+  }
+
+  /* Eid al-Adha Theme Override — Raw, Earthy, Sacred, Deep */
+  [data-eid-theme="adha"] {
+    --eid-primary: #B8860B;        /* Deep goldenrod */
+    --eid-secondary: #2D5016;      /* Deep forest green (grass/field) */
+    --eid-background: #070708;     /* Near black pre-dawn sky */
+    --eid-accent: #8B4513;         /* Saddle brown (earth/soil) */
+    --eid-warm: #D2691E;           /* Burnt orange (fire/sunset) */
+    --eid-glow: rgba(184, 134, 11, 0.5);
+    --eid-particle: #DAA520;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--eid-background);
+    color: #F8F9FA;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  body {
+    background-color: var(--eid-background);
+    overflow-x: hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Custom elegant scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--eid-primary);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--eid-accent);
+  }
+}
+
+/* Glassmorphism Classes for premium layouts */
+.glass-panel {
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: var(--transition-cinematic);
+}
+
+.glass-panel:hover {
+  border-color: rgba(var(--eid-primary), 0.2);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5), 0 0 20px 0 var(--eid-glow);
+}
+
+/* Custom premium buttons */
+.btn-golden {
+  background: linear-gradient(135deg, #E2C07D 0%, #B8860B 50%, #825D08 100%);
+  background-size: 200% auto;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #070708;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.btn-golden:hover {
+  background-position: right center;
+  box-shadow: 0 6px 25px rgba(184, 134, 11, 0.5), 0 0 15px var(--eid-glow);
+  transform: translateY(-2px);
+}
+
+.btn-golden:active {
+  transform: translateY(0);
+}
+
+/* Calligraphy stroke drawing animation */
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.draw-svg path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw-path 4s ease-out forwards;
+}
+
+/* Cinematic text typing/fade in delays */
+.reveal-text {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: text-fade-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes text-fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom keyframes for mosque window pulses */
+@keyframes window-glow {
+  0%, 100% {
+    fill: rgba(226, 192, 125, 0.3);
+    filter: drop-shadow(0 0 1px rgba(226, 192, 125, 0.3));
+  }
+  50% {
+    fill: rgba(226, 192, 125, 0.9);
+    filter: drop-shadow(0 0 5px rgba(226, 192, 125, 0.8));
+  }
+}
+
+.glow-window {
+  animation: window-glow 4s ease-in-out infinite;
+}
+
+/* Arabic pattern overlay styling */
+.arabic-pattern-overlay {
+  background-image: radial-gradient(var(--eid-primary) 0.5px, transparent 0.5px), radial-gradient(var(--eid-primary) 0.5px, var(--eid-background) 0.5px);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.03;
+}
