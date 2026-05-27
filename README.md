@@ -102,21 +102,13 @@ In your root terminal workspace, run:
 npm install
 ```
 
-### 2. Configure Environment Settings (`.env`)
-If you don't have a database configured, **do not worry!** EidVerse gracefully falls back to local JSON file mode (`lib/db-fallback.json`) loaded with pre-seeded stories, analytics, and cards.
-
-To connect your own MongoDB database, open the `.env` file and insert your Connection String:
-```env
-DATABASE_URL="mongodb+srv://<username>:<password>@cluster.mongodb.net/eidverse?retryWrites=true&w=majority"
-```
-
-### 3. Initialize Prisma Client & Schema
+### 2. Initialize Prisma Client & Schema
 After setting your live `DATABASE_URL` in `.env`, run the database push to configure indices:
 ```bash
 npx prisma db push
 ```
 
-### 4. Fire Up the Dev Server
+### 3. Fire Up the Dev Server
 Run the local dev compiler loop:
 ```bash
 npm run dev
@@ -137,6 +129,5 @@ This dynamic API diagnostics tool will:
 ---
 
 ## 🔑 Administrative Login Info
-* **Access Path**: Navigate to **`/admin`** in your browser.
+* **Access Path**: Navigate to **``** in your browser.
 * **Authentication**: Administrative passcodes are securely loaded from environment variables in your `.env` file (see `NEXT_PUBLIC_ADMIN_PASSCODE` and `NEXT_PUBLIC_ADMIN_PASSCODE_ALT`). Check your private `.env` file to customize or inspect these credentials.
-* **Quick Bypass**: Don't want to type code passwords during development? Click **"Quick Guest Bypass (For Testers)"** at the bottom of the card to access the moderation decks instantly!
