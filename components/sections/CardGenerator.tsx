@@ -5,6 +5,7 @@ import GoldenButton from '../ui/GoldenButton';
 import { Download, Sparkles, Share2, Palette, RefreshCw, Send, Check, Copy } from 'lucide-react';
 import { EidConfig } from '@/lib/eidDetector';
 import { generateCustomWish } from '@/lib/wishTemplates';
+import html2canvas from 'html2canvas';
 
 interface CardGeneratorProps {
   config: EidConfig;
@@ -118,8 +119,6 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
     cardRef.current.style.transition = 'none';
 
     try {
-      // Dynamically import html2canvas to ensure clean client execution
-      const html2canvas = (await import('html2canvas')).default;
       const canvas = await html2canvas(cardRef.current, {
         scale: 2.5, // High resolution output
         useCORS: true,
@@ -226,7 +225,8 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
       const data = await res.json();
       if (res.ok && data.success) {
         const origin = typeof window !== 'undefined' ? window.location.origin : '';
-        setShareUrl(`${origin}/card/${data.card.id}`);
+        const uniqueId = data.card.slug.replace('card-', '');
+        setShareUrl(`${origin}/card/${uniqueId}`);
       }
     } catch (err) {
       console.error('Publish Error:', err);
