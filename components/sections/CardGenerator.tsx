@@ -133,6 +133,58 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
       }
 
       const imgData = canvas.toDataURL('image/png');
+
+      // Fallback for iOS / Mobile Safari where direct base64 downloads are blocked
+      const isMobile = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        const newTab = window.open();
+        if (newTab) {
+          newTab.document.write(`
+            <html>
+              <head>
+                <title>Save Eid Card</title>
+                <style>
+                  body {
+                    background-color: #070708;
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    font-family: serif;
+                    color: #fff8e7;
+                    text-align: center;
+                    padding: 20px;
+                    box-sizing: border-box;
+                  }
+                  img {
+                    max-width: 100%;
+                    height: auto;
+                    border: 1px solid rgba(212, 175, 55, 0.3);
+                    border-radius: 12px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                  }
+                  p {
+                    color: #d4af37;
+                    font-size: 14px;
+                    letter-spacing: 0.1em;
+                    margin-top: 20px;
+                    text-transform: uppercase;
+                  }
+                </style>
+              </head>
+              <body>
+                <img src="${imgData}" alt="Eid Card" />
+                <p>Long Press the Image above to Save to Photos 📸</p>
+              </body>
+            </html>
+          `);
+          newTab.document.close();
+          return;
+        }
+      }
+
       const link = document.createElement('a');
       link.download = `${receiverName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-eid-card.png`;
       link.href = imgData;
