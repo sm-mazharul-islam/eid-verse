@@ -5,7 +5,7 @@ import GoldenButton from '../ui/GoldenButton';
 import { Download, Sparkles, Share2, Palette, RefreshCw, Send, Check, Copy } from 'lucide-react';
 import { EidConfig } from '@/lib/eidDetector';
 import { generateCustomWish } from '@/lib/wishTemplates';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas-pro';
 
 interface CardGeneratorProps {
   config: EidConfig;

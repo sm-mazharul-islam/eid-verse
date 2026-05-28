@@ -1,4 +1,5 @@
-# <img src="./images/logo.png" alt="EidVerse Logo" width="80" align="center" /> EidVerse | Atmospheric Cinematic Greeting & Qurbani Storytelling Experience
+# 🌙 EidVerse — Atmospheric Cinematic Greeting & Qurbani Storytelling Experience
+
 EidVerse is a premium, cinematic web application that transcends typical greeting tools, creating an emotional and atmospheric journey for users to share blessings, compose relationship-customized 3D greeting cards, and celebrate the sacred season of Eid.
 
 Currently running dynamically in **Eid al-Adha (Qurbani) Mode** or **Eid al-Fitr (Sheer Khurma) Mode** based on local systems calendars and URL search overrides!
@@ -11,35 +12,7 @@ Currently running dynamically in **Eid al-Adha (Qurbani) Mode** or **Eid al-Fitr
 
 *(Note: Automatically connects dynamically to your live MongoDB Atlas cloud database cluster!)*
 
----
-
-## 📸 Screenshots
-
-<table>
-  <tr>
-    <td width="50%">
-      <img src="./images/dashboardOne.png" alt="Screenshot 1" />
-    </td>
-    <td width="50%">
-      <img src="./images/dashboardThree.png" alt="Screenshot 2" />
-    </td>
-  </tr>
-
-  <tr>
-    <td width="50%">
-      <img src="./images/home.png" alt="Screenshot 3" />
-    </td>
-    <td width="50%">
-      <img src="./images/homeTwo.png" alt="Screenshot 4" />
-    </td>
-  </tr>
-
-  <tr>
-    <td colspan="2">
-      <img src="./images/toggle.png" alt="Screenshot 5" />
-    </td>
-  </tr>
-</table>
+ 
 
 ---
 
