@@ -4,7 +4,8 @@ import Link from 'next/link';
 import StarField from '@/components/animation/StarField';
 import FloatingLanterns from '@/components/animation/FloatingLanterns';
 import AudioControl from '@/components/ui/AudioControl';
-import { Send, Heart, Sparkles } from 'lucide-react';
+import SharedCardVisual from '@/components/sections/SharedCardVisual';
+import { Send, Heart, Sparkles, Home, ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -53,135 +54,93 @@ export default async function CardPage({ params }: Props) {
     });
   } catch (err) {}
 
-  const themeCards = {
-    moon: {
-      bg: 'bg-gradient-to-b from-[#09121F] to-[#03070C] border-blue-500/20 text-[#FFF8E7]',
-      moonColor: 'text-blue-300/40 filter drop-shadow-[0_0_15px_rgba(147,197,253,0.3)]',
-      cardGlow: 'shadow-[0_0_35px_rgba(59,130,246,0.18)]',
-      patternOpacity: 'opacity-5',
-      titleColor: 'text-gold-200',
-    },
-    mosque: {
-      bg: 'bg-gradient-to-tr from-[#1E1B29] to-[#0A0812] border-purple-500/20 text-[#FFF8E7]',
-      moonColor: 'text-purple-300/30 filter drop-shadow-[0_0_15px_rgba(216,180,254,0.3)]',
-      cardGlow: 'shadow-[0_0_35px_rgba(168,85,247,0.18)]',
-      patternOpacity: 'opacity-5',
-      titleColor: 'text-purple-300',
-    },
-    lantern: {
-      bg: 'bg-gradient-to-b from-[#1C160E] to-[#080603] border-amber-500/20 text-[#FFF3D4]',
-      moonColor: 'text-amber-300/30 filter drop-shadow-[0_0_15px_rgba(252,211,77,0.3)]',
-      cardGlow: 'shadow-[0_0_35px_rgba(245,158,11,0.18)]',
-      patternOpacity: 'opacity-5',
-      titleColor: 'text-amber-400',
-    },
-    gold: {
-      bg: 'bg-gradient-to-tr from-[#0F0F0B] via-[#050503] to-[#14120D] border-gold-500/30 text-[#FFF8E7]',
-      moonColor: 'text-gold-400/40 filter drop-shadow-[0_0_15px_#B8860B]',
-      cardGlow: 'shadow-[0_0_40px_rgba(184,134,11,0.3)]',
-      patternOpacity: 'opacity-10',
-      titleColor: 'text-gold-300',
-    }
-  }[card.theme as 'moon' | 'mosque' | 'lantern' | 'gold'] || {
-    bg: 'bg-gradient-to-tr from-[#0F0F0B] via-[#050503] to-[#14120D] border-gold-500/30 text-[#FFF8E7]',
-    moonColor: 'text-gold-400/40 filter drop-shadow-[0_0_15px_#B8860B]',
-    cardGlow: 'shadow-[0_0_40px_rgba(184,134,11,0.3)]',
-    patternOpacity: 'opacity-10',
-    titleColor: 'text-gold-300',
-  };
+  const themeAmbientGlows = {
+    moon: 'from-[#0a192f]/80 via-[#03070c]/95 to-[#020406]',
+    mosque: 'from-[#1b1429]/80 via-[#0a0712]/95 to-[#040307]',
+    lantern: 'from-[#231709]/80 via-[#080503]/95 to-[#040201]',
+    gold: 'from-[#1e190f]/80 via-[#070604]/95 to-[#020201]',
+  }[card.theme as 'moon' | 'mosque' | 'lantern' | 'gold'] || 'from-[#1e190f]/80 via-[#070604]/95 to-[#020201]';
 
   return (
     <div 
-      className="relative min-h-screen w-full flex flex-col items-center justify-center p-6 overflow-hidden"
-      style={{ backgroundColor: '#070708' }}
+      className={`relative min-h-screen w-full flex flex-col items-center justify-between p-6 overflow-hidden bg-gradient-to-b ${themeAmbientGlows}`}
     >
       {/* Dynamic Star background */}
-      <StarField density={120} speed={0.06} theme={card.theme === 'moon' ? 'fitr' : 'adha'} />
+      <StarField density={140} speed={0.05} theme={card.theme === 'moon' ? 'fitr' : 'adha'} />
 
       {/* Floating lanterns */}
-      <FloatingLanterns count={card.theme === 'lantern' ? 14 : 6} />
+      <FloatingLanterns count={card.theme === 'lantern' ? 12 : 6} />
 
       {/* Islamic geometric pattern backdrop overlay */}
-      <div className="absolute inset-0 arabic-pattern-overlay opacity-[0.02] pointer-events-none" />
+      <div className="absolute inset-0 arabic-pattern-overlay opacity-[0.015] pointer-events-none" />
+
+      {/* Header Brand Link */}
+      <header className="relative z-20 w-full max-w-5xl flex justify-between items-center py-4 border-b border-white/5 mb-8">
+        <Link 
+          href="/" 
+          className="font-serif text-sm md:text-base font-bold tracking-[0.2em] text-white hover:text-gold-300 transition-colors uppercase flex items-center gap-1.5 cursor-pointer"
+        >
+          EIDVERSE
+          <span className="text-[8px] text-gold-400 font-sans tracking-widest bg-gold-500/10 px-2 py-0.5 rounded border border-gold-400/20 uppercase">
+            {card.eidType === 'eid-al-fitr' ? 'Fitr Mode 🌙' : 'Adha Special 🕋'}
+          </span>
+        </Link>
+        <Link
+          href="/"
+          className="glass-panel border border-white/5 hover:border-gold-400/30 text-xs text-gray-400 hover:text-white px-3 py-1.5 rounded-full flex items-center gap-1 transition-all"
+        >
+          <Home className="w-3.5 h-3.5" />
+          Home
+        </Link>
+      </header>
 
       {/* High density Card Preview wrapper */}
-      <div className="relative z-20 w-full max-w-[480px] flex flex-col gap-6 items-center animate-fade-in">
+      <div className="relative z-20 w-full max-w-[480px] flex flex-col gap-8 items-center my-auto animate-fade-in py-6">
         
-        {/* Actual Glowing Card Container */}
-        <div
-          className={`relative aspect-[4/3] w-full rounded-2xl border p-8 md:p-10 flex flex-col justify-between overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.01] ${themeCards.bg} ${themeCards.cardGlow}`}
-        >
-          {/* Geometric overlay */}
-          <div 
-            className={`absolute inset-0 arabic-pattern-overlay ${themeCards.patternOpacity} pointer-events-none`}
-            style={{ mixBlendMode: 'overlay' }}
-          />
-
-          {/* Corner visual stamps */}
-          <div className="absolute top-4 left-4 text-gold-400/30 font-serif text-[10px] tracking-widest uppercase">
-            🕌 EID
-          </div>
-          <div className="absolute top-4 right-4 text-gold-400/30 font-serif text-[10px] tracking-widest uppercase">
-            {card.eidType === 'eid-al-fitr' ? 'FITR 🌙' : 'ADHA 🕋'}
-          </div>
-
-          {/* Core themed vector logo moon */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 flex items-center justify-center pointer-events-none">
-            <svg
-              viewBox="0 0 100 100"
-              className={`w-full h-full ${themeCards.moonColor}`}
-            >
-              <path d="M50,10 C62.5,10 74,15.5 82,24 C71.5,23.5 59.5,29.5 52,38.5 C44.5,47.5 43.5,59.5 48.5,69.5 C36.5,66 28,54.5 28,41 C28,24 37.5,10 50,10 Z" />
-            </svg>
-          </div>
-
-          {/* Recipient Slot */}
-          <div className="relative z-10 text-center flex flex-col items-center">
-            <span className="text-[10px] md:text-xs text-gold-300 font-serif tracking-[0.25em] uppercase font-semibold block mb-2">
-              Prepared Especially For
-            </span>
-            <h3 className={`font-serif text-2xl md:text-3xl font-bold tracking-wide ${themeCards.titleColor}`}>
-              {card.receiverName}
-            </h3>
-            <div className="w-16 h-[1.5px] bg-gradient-to-r from-transparent via-gold-400 to-transparent mt-3" />
-          </div>
-
-          {/* Blessing Message Slot */}
-          <div className="relative z-10 text-center my-6">
-            <p className="text-xs md:text-sm leading-relaxed font-serif italic text-white/95">
-              “{card.message}”
-            </p>
-          </div>
-
-          {/* Card Footer branding */}
-          <div className="relative z-10 text-center border-t border-gold-400/10 pt-4 flex flex-col items-center">
-            {card.senderName && card.senderName !== 'Eid Card Generator' && (
-              <span className="text-[9px] uppercase tracking-widest text-gold-300 font-serif mb-1 block">
-                With Love & Respect: {card.senderName}
-              </span>
-            )}
-            <span className="font-arabic text-xl text-gold-300 tracking-wider">عيد مبارك</span>
-            <span className="text-[9px] uppercase tracking-widest text-gray-500 mt-1 font-light">
-              {card.eidType === 'eid-al-fitr' ? 'Eid al-Fitr' : 'Eid al-Adha'} • Created on EidVerse
-            </span>
-          </div>
+        <div className="text-center">
+          <span className="text-[10px] text-gold-300 font-serif tracking-[0.3em] uppercase block mb-1">
+            ✨ Spiritual Blessing Unlocked ✨
+          </span>
+          <p className="text-[9px] text-gray-500 uppercase tracking-widest">
+            Move your cursor or hover to interact with the 3D depth of the card
+          </p>
         </div>
 
+        {/* Dynamic Interactive Card Visual */}
+        <SharedCardVisual card={{
+          receiverName: card.receiverName,
+          message: card.message,
+          theme: card.theme,
+          senderName: card.senderName,
+          eidType: card.eidType,
+        }} />
+
         {/* Dynamic CTA Backlink Panel */}
-        <div className="w-full glass-panel border border-white/10 p-6 rounded-2xl flex flex-col gap-3 shadow-lg">
+        <div className="w-full glass-panel border border-white/10 p-6 rounded-2xl flex flex-col gap-4 shadow-xl text-center">
+          <div className="flex flex-col gap-1">
+            <h4 className="text-xs text-gold-300 uppercase tracking-widest font-serif font-semibold">Want to make your own?</h4>
+            <p className="text-[10px] text-gray-400 leading-relaxed">Create and share a highly customized, 3D animated card with standard soundscapes for friends, parents, or specific professions!</p>
+          </div>
           <Link
             href="/"
-            className="btn-golden py-3.5 rounded-lg text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 transition-all text-center w-full"
+            className="btn-golden py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 hover:scale-[1.02] active:scale-95 transition-all text-center w-full shadow-lg"
           >
-            <Heart className="w-4 h-4" />
-            Create a Customized Card For Someone You Love
+            <Heart className="w-4 h-4 animate-pulse text-red-500" />
+            Design Custom Card Now
           </Link>
-          <span className="text-[8px] text-gray-600 uppercase tracking-widest block text-center font-light mt-1">
-            {card.viewCount} views • Created on EidVerse
+          <span className="text-[8px] text-gray-600 uppercase tracking-widest block font-mono">
+            {card.viewCount} views • Created with love on EidVerse
           </span>
         </div>
 
       </div>
+
+      {/* Footer Branding */}
+      <footer className="relative z-20 py-6 text-center w-full max-w-5xl border-t border-white/5 mt-8">
+        <p className="text-[9px] text-gray-600 font-mono tracking-wider uppercase">
+          An Emotional Cinematic Journey • Powered by Next.js & Web Audio API
+        </p>
+      </footer>
 
       {/* Sound manager panel */}
       <AudioControl />

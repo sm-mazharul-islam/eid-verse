@@ -45,6 +45,7 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
   const [senderName, setSenderName] = useState('Your Name');
   const [receiverName, setReceiverName] = useState('My Beloved Family');
   const [relationship, setRelationship] = useState('friend');
+  const [profession, setProfession] = useState('none');
   const [personalMessage, setPersonalMessage] = useState('May Allah accept every silent prayer and fill your home with His mercy this Eid.');
   const [cardTheme, setCardTheme] = useState<'moon' | 'mosque' | 'lantern' | 'gold'>('gold');
   const [fontStyle, setFontStyle] = useState<'traditional' | 'modern'>('traditional');
@@ -56,6 +57,41 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
 
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // 3D tilt tracking style
+  const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({
+    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+    transition: 'transform 0.5s ease',
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card || isDownloading) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Normalize coordinates: -0.5 to 0.5
+    const normalizedX = (x / rect.width) - 0.5;
+    const normalizedY = (y / rect.height) - 0.5;
+
+    // Rotate bounds: max 12 degrees
+    const rotateX = -normalizedY * 12;
+    const rotateY = normalizedX * 12;
+
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transition: 'transform 0.1s ease',
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+      transition: 'transform 0.5s ease',
+    });
+  };
+
   const handleSuggestMessage = () => {
     const sName = senderName === 'Your Name' ? 'Your Name' : senderName;
     const wish = generateCustomWish(
@@ -63,7 +99,8 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
       receiverName || 'Someone Special',
       relationship,
       cardTheme,
-      config.themeKey === 'fitr' ? 'fitr' : 'adha'
+      config.themeKey === 'fitr' ? 'fitr' : 'adha',
+      profession
     );
     setPersonalMessage(wish);
   };
@@ -71,6 +108,14 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
   const handleDownload = async () => {
     if (!cardRef.current || isDownloading) return;
     setIsDownloading(true);
+
+    // Capture original inline style transforms
+    const originalTransform = cardRef.current.style.transform;
+    const originalTransition = cardRef.current.style.transition;
+
+    // Remove active 3D transforms to prevent html2canvas skew/crop bug
+    cardRef.current.style.transform = 'none';
+    cardRef.current.style.transition = 'none';
 
     try {
       // Dynamically import html2canvas to ensure clean client execution
@@ -81,13 +126,25 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
         backgroundColor: null,
       });
 
+      // Restore original 3D styles
+      if (cardRef.current) {
+        cardRef.current.style.transform = originalTransform;
+        cardRef.current.style.transition = originalTransition;
+      }
+
       const imgData = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.download = `${receiverName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-eid-card.png`;
       link.href = imgData;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     } catch (err) {
       console.error('Download Error:', err);
+      if (cardRef.current) {
+        cardRef.current.style.transform = originalTransform;
+        cardRef.current.style.transition = originalTransition;
+      }
     } finally {
       setIsDownloading(false);
     }
@@ -193,7 +250,7 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
               </div>
             </div>
 
-            {/* Relationship Tone Selector */}
+             {/* Relationship Tone Selector */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs text-gray-300 uppercase tracking-widest font-medium">Relationship / Tone</label>
               <div className="relative">
@@ -208,7 +265,8 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
                       receiverName || 'Someone Special',
                       val,
                       cardTheme,
-                      config.themeKey === 'fitr' ? 'fitr' : 'adha'
+                      config.themeKey === 'fitr' ? 'fitr' : 'adha',
+                      profession
                     );
                     setPersonalMessage(wish);
                   }}
@@ -228,6 +286,45 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
                   <option value="teacher" className="bg-[#0e0e11] text-white">Honorable Teacher</option>
                   <option value="bangla" className="bg-[#0e0e11] text-white">Bangla Deshi Vibe 🐄</option>
                   <option value="spiritual" className="bg-[#0e0e11] text-white">Spiritual Sunnah 🌙</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Recipient's Profession / Vibe Selector */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs text-gray-300 uppercase tracking-widest font-medium">Recipient's Profession / Vibe</label>
+              <div className="relative">
+                <select
+                  value={profession}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setProfession(val);
+                    const sName = senderName === 'Your Name' ? 'Your Name' : senderName;
+                    const wish = generateCustomWish(
+                      sName,
+                      receiverName || 'Someone Special',
+                      relationship,
+                      cardTheme,
+                      config.themeKey === 'fitr' ? 'fitr' : 'adha',
+                      val
+                    );
+                    setPersonalMessage(wish);
+                  }}
+                  className="w-full bg-black/40 border border-white/10 focus:border-gold-400/50 rounded-lg px-4 py-3 text-sm text-white focus:outline-none transition-all cursor-pointer appearance-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(212,175,55,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 12px center',
+                    backgroundSize: '16px'
+                  }}
+                >
+                  <option value="none" className="bg-[#0e0e11] text-white">None (Use Relationship default)</option>
+                  <option value="developer" className="bg-[#0e0e11] text-white">Software Engineer 💻</option>
+                  <option value="doctor" className="bg-[#0e0e11] text-white">Doctor / Healthcare 🩺</option>
+                  <option value="banker" className="bg-[#0e0e11] text-white">Banker / Accountant 📊</option>
+                  <option value="student" className="bg-[#0e0e11] text-white">Student / Academic 📚</option>
+                  <option value="businessman" className="bg-[#0e0e11] text-white">Businessman / Visionary 💼</option>
+                  <option value="artist" className="bg-[#0e0e11] text-white">Artist / Designer 🎨</option>
                 </select>
               </div>
             </div>
@@ -349,7 +446,10 @@ export default function CardGenerator({ config }: CardGeneratorProps) {
             {/* The exported canvas card */}
             <div
               ref={cardRef}
-              className={`relative aspect-[4/3] w-full max-w-[480px] rounded-2xl border p-8 md:p-10 flex flex-col justify-between overflow-hidden ${currentTheme.bg} ${currentTheme.cardGlow} select-none`}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              style={tiltStyle}
+              className={`relative aspect-[4/3] w-full max-w-[480px] rounded-2xl border p-8 md:p-10 flex flex-col justify-between overflow-hidden ${currentTheme.bg} ${currentTheme.cardGlow} select-none cursor-pointer`}
             >
               {/* Islamic Pattern grid overlay */}
               <div 

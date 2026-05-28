@@ -15,8 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eid Verse",
-  description: "eid verse",
+  title: "EidVerse | Premium Cinematic Emotional Experience",
+  description: "Share personalized 3D Eid greeting cards, stories, and blessings.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

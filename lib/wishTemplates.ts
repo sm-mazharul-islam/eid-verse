@@ -97,20 +97,52 @@ export const spiritualTemplates = [
   "On this sacred day of Eid al-Adha, I pray that Allah accepts from you every sacrifice — not just the Qurbani, but every hardship you have endured with patience. Eid Mubarak, {sender}."
 ];
 
+// Custom recipient profession-tailored wish templates
+export const professionTemplates: Record<string, string[]> = {
+  developer: [
+    "Hey {receiver}! May your code compile with zero bugs and your Eid feast yield maximum meat! Taqabbalallahu minna wa minkum from {sender}! 💻🐄",
+    "Dear {receiver}, wishing you high-performance Eid blessings with O(1) complexity and infinite compounding joy this morning! Best, {sender}."
+  ],
+  doctor: [
+    "Respected {receiver}, you heal lives with care. This Eid, may Allah grant you eternal health, peace, and pure barakah. Eid Mubarak from {sender}! 🩺✨",
+    "Dearest {receiver}, praying that your days are filled with ultimate wellness, happiness, and beautiful memories. Eid Mubarak! - {sender}."
+  ],
+  banker: [
+    "To the financial wizard {receiver}! May this Eid balance your ledger of life with high-margin happiness and endless compounding blessings. Eid Mubarak! - {sender} 📊",
+    "Dear {receiver}, wishing you high transaction volumes of laughter, balanced reserves of peace, and substantial Salami dividends! Cheers, {sender}."
+  ],
+  student: [
+    "Hey {receiver}! May this Eid reward you with maximum Salami, beautiful grades, and a legendary Qurbani feast! Eid Mubarak from {sender}! 📚✨",
+    "Dear {receiver}, take a well-deserved study break! Wishing you a brilliant, happy, and delicious Eid. Love, {sender}."
+  ],
+  businessman: [
+    "To the ultimate visionary {receiver}! Wishing you booming growth, high-dividend blessings, and highly prosperous Eid memories. Best, {sender} 💼🚀",
+    "Dear {receiver}, may your Eid be as highly successful and rewarding as your greatest venture. Eid Mubarak from your partner in joy, {sender}."
+  ],
+  artist: [
+    "To the creative soul {receiver}! Wishing you a stunning canvas of vibrant Eid celebrations, golden moments, and colorful blessings. Eid Mubarak! - {sender} 🎨",
+    "Dear {receiver}, may your Eid be a glorious masterpiece of laughter, beautiful melodies, and delicious feasts. Warmly, {sender}."
+  ]
+};
+
 export function generateCustomWish(
   sender: string,
   receiver: string,
   relationship: string,
   theme: string,
-  eidType: 'fitr' | 'adha'
+  eidType: 'fitr' | 'adha',
+  profession?: string
 ): string {
   const rel = relationship.toLowerCase();
   const th = theme.toLowerCase();
+  const prof = profession?.toLowerCase();
 
   // Try to find custom relationship + theme template
   let availableTemplates: string[] = [];
 
-  if (rel === 'bangla') {
+  if (prof && prof !== 'none' && professionTemplates[prof]) {
+    availableTemplates = professionTemplates[prof];
+  } else if (rel === 'bangla') {
     availableTemplates = banglaWishTemplates;
   } else if (rel === 'spiritual') {
     availableTemplates = spiritualTemplates;
