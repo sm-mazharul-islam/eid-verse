@@ -1,4 +1,4 @@
-# 🌙 EidVerse — Atmospheric Cinematic Greeting & Qurbani Storytelling Experience
+# 🌙 EidVerse | Atmospheric Cinematic Greeting & Qurbani Storytelling Experience
 
 EidVerse is a premium, cinematic web application that transcends typical greeting tools, creating an emotional and atmospheric journey for users to share blessings, compose relationship-customized 3D greeting cards, and celebrate the sacred season of Eid.
 
